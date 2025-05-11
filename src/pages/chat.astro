@@ -1,0 +1,300 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header/Header.astro";
+---
+
+<Layout title="AI Chat Simulator">
+  <Header title="Chat IA" />
+  <div class="chat-container">
+    <div class="chat-messages" id="chat-messages">
+      <div class="message ai-message">
+        <div class="message-content">
+          Bienvenido a pogo, ¿en qué te puedo ayudar hoy?
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-container">
+      <div class="input-group">
+        <input
+          type="text"
+          id="user-input"
+          placeholder="Escribe tu mensaje..."
+        />
+        <button id="send-btn">Enviar</button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  .chat-container {
+    max-width: 100vw;
+    margin: 0 auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+  }
+
+  .chat-header {
+    background-color: #4a5568;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    height: 70vh;
+  }
+
+  .message {
+    max-width: 80%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    &.user-message {
+      align-self: flex-end;
+      background-color: #10b981;
+      color: white;
+      border-bottom-right-radius: 0.25rem;
+    }
+
+    &.ai-message {
+      align-self: flex-start;
+      background-color: #d1fae5;
+      color: #1f2937;
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    .message-content {
+      word-wrap: break-word;
+      width: 100%;
+    }
+  }
+
+  .chat-input-container {
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+  }
+
+  .input-group {
+    display: flex;
+    gap: 0.5rem;
+
+    input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #10b981;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #10b981;
+      }
+    }
+  }
+</style>
+
+<script>
+  const chatMessages = document.getElementById("chat-messages");
+  const userInput = document.getElementById("user-input") as HTMLInputElement;
+  const sendBtn = document.getElementById("send-btn");
+
+  const qaPairs = [
+    {
+      question: "¿Cada cuánto debo alimentar a mi recién nacido?",
+      answer: "Generalmente cada 2 a 3 horas, incluso durante la noche.",
+    },
+    {
+      question: "¿Cómo sé si mi bebé está comiendo lo suficiente?",
+      answer:
+        "Si moja al menos 6 pañales al día y gana peso regularmente, está comiendo bien.",
+    },
+    {
+      question: "¿Es normal que mi bebé tenga hipo?",
+      answer:
+        "Sí, el hipo es muy común en los recién nacidos y generalmente no causa molestias.",
+    },
+    {
+      question: "¿Cuántas horas debe dormir un recién nacido?",
+      answer: "Entre 14 y 17 horas distribuidas durante el día y la noche.",
+    },
+    {
+      question: "¿Debo despertar al bebé para alimentarlo?",
+      answer:
+        "Sí, si han pasado más de 3 horas sin comer, especialmente en las primeras semanas.",
+    },
+    {
+      question: "¿Cuándo puedo bañar a mi bebé por primera vez?",
+      answer:
+        "Después de que se le haya caído el cordón umbilical, entre 1 y 2 semanas.",
+    },
+    {
+      question: "¿Qué hago si mi bebé llora mucho?",
+      answer:
+        "Verifica si tiene hambre, está sucio, tiene gases, o necesita cariño. Si persiste, consulta al pediatra.",
+    },
+    {
+      question: "¿Puedo sacar a mi bebé recién nacido a la calle?",
+      answer:
+        "Sí, con precaución, evitando multitudes y exposiciones prolongadas al sol o frío.",
+    },
+    {
+      question: "¿Es seguro dormir con el bebé?",
+      answer:
+        "No se recomienda por el riesgo de asfixia. Lo mejor es que duerma en su cuna cerca de ti.",
+    },
+    {
+      question: "¿Cuándo debo comenzar con las vacunas?",
+      answer:
+        "Desde el nacimiento, siguiendo el calendario de vacunación de tu país.",
+    },
+    {
+      question: "¿Puedo usar pañales de tela?",
+      answer:
+        "Sí, son una opción ecológica y económica, pero requieren más lavado y cuidado.",
+    },
+    {
+      question: "¿Cómo debo cortar las uñas del bebé?",
+      answer:
+        "Con tijeras especiales de punta redonda cuando esté dormido o tranquilo.",
+    },
+    {
+      question: "¿Es normal que el bebé estornude mucho?",
+      answer:
+        "Sí, los estornudos ayudan a limpiar sus vías respiratorias. Es normal.",
+    },
+    {
+      question: "¿Mi bebé necesita tomar agua?",
+      answer:
+        "No antes de los 6 meses si está alimentado con leche materna o fórmula.",
+    },
+    {
+      question: "¿Cómo le ayudo con los gases?",
+      answer:
+        "Sácalos después de cada toma con suaves palmaditas en la espalda.",
+    },
+    {
+      question: "¿Qué pasa si mi bebé tiene fiebre?",
+      answer: "Consulta al pediatra inmediatamente si es menor de 3 meses.",
+    },
+    {
+      question: "¿Es normal que duerma con los ojos entreabiertos?",
+      answer: "Sí, algunos bebés duermen así. Generalmente es inofensivo.",
+    },
+    {
+      question: "¿Qué tipo de ropa debe usar mi bebé para dormir?",
+      answer:
+        "Ropa cómoda, sin exceso de abrigo y sin accesorios sueltos que puedan causar asfixia.",
+    },
+    {
+      question: "¿Cuándo le saldrán los dientes?",
+      answer: "Generalmente entre los 4 y 7 meses, aunque puede variar.",
+    },
+    {
+      question: "¿Puedo llevar a mi bebé al pediatra solo por prevención?",
+      answer:
+        "Sí, las revisiones periódicas son importantes para monitorear su desarrollo.",
+    },
+  ];
+
+  function addMessage(content: string, isUser: boolean): void {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = isUser
+      ? "message user-message"
+      : "message ai-message";
+
+    // Aplicar estilos base para todos los mensajes
+    messageDiv.style.maxWidth = "80%";
+    messageDiv.style.padding = "0.75rem 1rem";
+    messageDiv.style.borderRadius = "1rem";
+    messageDiv.style.display = "flex";
+    messageDiv.style.alignItems = "center";
+    messageDiv.style.marginBottom = "0.5rem";
+
+    if (isUser) {
+      messageDiv.style.alignSelf = "flex-end";
+      messageDiv.style.backgroundColor = "#10b981";
+      messageDiv.style.color = "white";
+      messageDiv.style.borderBottomRightRadius = "0.25rem";
+    } else {
+      messageDiv.style.alignSelf = "flex-start";
+      messageDiv.style.backgroundColor = "#d1fae5";
+      messageDiv.style.color = "#1f2937";
+      messageDiv.style.borderBottomLeftRadius = "0.25rem";
+    }
+
+    const messageContent = document.createElement("div");
+    messageContent.className = "message-content";
+    messageContent.textContent = content;
+    messageContent.style.wordWrap = "break-word";
+    messageContent.style.width = "100%";
+
+    messageDiv.appendChild(messageContent);
+    chatMessages?.appendChild(messageDiv);
+
+    if (chatMessages) {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    if (isUser) {
+      setTimeout(() => {
+        const answer = findAnswer(content);
+        addMessage(answer, false);
+      }, 500);
+    }
+  }
+
+  function findAnswer(question: string) {
+    const lowercaseQuestion = question.toLowerCase().trim();
+    for (const pair of qaPairs) {
+      if (
+        lowercaseQuestion.includes(pair.question.toLowerCase()) ||
+        pair.question.toLowerCase().includes(lowercaseQuestion)
+      ) {
+        return pair.answer;
+      }
+    }
+    return "Lo siento pero no puedo responder a eso, ¿tienes alguna otra pregunta?";
+  }
+
+  sendBtn?.addEventListener("click", () => {
+    if (userInput && userInput.value.trim() !== "") {
+      addMessage(userInput.value, true);
+      userInput.value = "";
+    }
+  });
+
+  userInput?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter" && userInput.value.trim() !== "") {
+      addMessage(userInput.value, true);
+      userInput.value = "";
+    }
+  });
+</script>

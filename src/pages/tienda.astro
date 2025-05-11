@@ -1,1 +1,242 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header/Header.astro";
+import pañales from "../assets/pañales.jpg";
+import chupete from "../assets/chupete.jpg";
+import cuna from "../assets/cuna.jpg";
+import biberon from "../assets/biberon.jpg";
 
+
+const products = [
+  {
+    name: "Chupete Clásico",
+    description: "Chupete ortodóntico de silicona para recién nacidos.",
+    price: 4.99,
+    image: chupete
+  },
+  {
+    name: "Pañales Talla 1",
+    description: "Pañales ultra absorbentes para bebés de 2 a 5 kg.",
+    price: 14.99,
+    image: pañales
+  },
+  {
+    name: "Biberón",
+    description: "Biberón de 260ml con sistema anticólicos y tetina de flujo lento.",
+    price: 8.49,
+    image: biberon
+  },
+  {
+    name: "Cuna",
+    description: "Una cuna de madera con colchón incluido.",
+    price: 17.99,
+    image: cuna
+  }
+];
+---
+
+<Layout title="Tienda para Bebés">
+  <Header title="Catálogo de Productos" />
+  
+  <!-- Carrito de compras -->
+  <div class="cart-container">
+    <button id="cart-button" class="cart-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+      <span id="cart-count" class="cart-count">0</span>
+    </button>
+  </div>
+  
+  <div class="grid">
+    {products.map(product => (
+      <div class="card">
+        <img src={product.image.src} alt={product.name} class="image" />
+        <h2>{product.name}</h2>
+        <p>{product.description}</p>
+        <p class="price">${product.price.toFixed(2)}</p>
+        <button class="add-to-cart-btn">Añadir al carrito</button>
+      </div>
+    ))}
+  </div>
+</Layout>
+
+<style lang="scss">
+  body {
+    font-family: system-ui, sans-serif;
+    background-color: #f9fafb;
+    color: #1f2937;
+  }
+
+  h1 {
+    font-size: 1.875rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #1f2937;
+  }
+
+  /* Estilos del carrito */
+  .cart-container {
+    position: fixed;
+    top: 5rem;
+    right: 1rem;
+    z-index: 100;
+  }
+
+  .cart-button {
+    background-color: white;
+    border: none;
+    border-radius: 50%;
+    width: 3.5rem;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    position: relative;
+    color: #10b981;
+    transition: transform 0.2s;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+    
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+
+  .cart-count {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    background-color: #ef4444;
+    color: white;
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  .grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem 2.5rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    background-color: rgba(183, 252, 178, 0.584);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      font-size: 1.50rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #111827;
+      font-weight: 700;
+    }
+
+    p {
+      text-align: center;
+      color: #4b5563;
+      margin-bottom: 0.5rem;
+
+      &.price {
+        font-weight: 700;
+        color: #2563eb;
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .add-to-cart-btn {
+      background-color: #3b82f6;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #2563eb;
+      }
+    }
+  }
+
+  .image {
+    width: 100%;
+    height: 20rem;
+    border-radius: 0.5rem;
+    object-fit: cover;
+  }
+</style>
+
+<script>
+  // Script para el carrito (no funcional, solo para mostrar interacción)
+  document.addEventListener('DOMContentLoaded', () => {
+    const cartCountElement = document.getElementById('cart-count');
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+    const cartButton = document.getElementById('cart-button');
+    
+    let cartCount = 0;
+    
+    // Añadir evento a los botones de añadir al carrito
+    addToCartButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        cartCount++;
+        if (cartCountElement) {
+          cartCountElement.textContent = cartCount.toString();
+          
+          // Animación sencilla para el botón
+          const btn = button as HTMLButtonElement;
+          btn.textContent = "¡Añadido!";
+          btn.style.backgroundColor = "#10b981"; // Color verde
+          
+          // Restaurar el texto original después de un momento
+          setTimeout(() => {
+            btn.textContent = "Añadir al carrito";
+            btn.style.backgroundColor = "#3b82f6";
+          }, 1000);
+        }
+      });
+    });
+    
+    // Mostrar un mensaje al hacer clic en el icono del carrito
+    cartButton?.addEventListener('click', () => {
+      if (cartCount === 0) {
+        alert('Tu carrito está vacío');
+      } else {
+        alert(`Tienes ${cartCount} productos en tu carrito`);
+      }
+    });
+  });
+</script>
