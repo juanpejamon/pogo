@@ -5,61 +5,110 @@ import pañales from "../assets/pañales.jpg";
 import chupete from "../assets/chupete.jpg";
 import cuna from "../assets/cuna.jpg";
 import biberon from "../assets/biberon.jpg";
-
+import leche from "../assets/leche.jpg";
+import manta from "../assets/manta.jpg";
+import sabanas from "../assets/sabanas.jpg";
+import sudadera from "../assets/sudadera.jpg";
+import carrito from "../assets/carrito.jpg";
 
 const products = [
   {
-    name: "Chupete Clásico",
+    name: "Chupete",
     description: "Chupete ortodóntico de silicona para recién nacidos.",
     price: 4.99,
-    image: chupete
+    image: chupete,
   },
   {
     name: "Pañales Talla 1",
     description: "Pañales ultra absorbentes para bebés de 2 a 5 kg.",
     price: 14.99,
-    image: pañales
+    image: pañales,
   },
   {
     name: "Biberón",
-    description: "Biberón de 260ml con sistema anticólicos y tetina de flujo lento.",
+    description:
+      "Biberón de 260ml con sistema anticólicos y tetina de flujo lento.",
     price: 8.49,
-    image: biberon
+    image: biberon,
   },
   {
     name: "Cuna",
     description: "Una cuna de madera con colchón incluido.",
-    price: 17.99,
-    image: cuna
-  }
+    price: 179.99,
+    image: cuna,
+  },
+  {
+    name: "Leche en Polvo Etapa 1, 2, 3",
+    description: "Fórmula infantil para las diferentes etapas.",
+    price: 21.99,
+    image: leche,
+  },
+  {
+    name: "Manta de Bebé",
+    description: "Manta suave de algodón orgánico con diseño de koala.",
+    price: 24.99,
+    image: manta,
+  },
+  {
+    name: "Sábanas de Cuna y manta",
+    description: "Juego de sábanas y manta para cuna con estampado de koala.",
+    price: 19.99,
+    image: manta,
+  },
+  {
+    name: "Sudadera Bebé (varios colores)",
+    description: "Sudadera con capucha y estampado de koala para bebés.",
+    price: 22.99,
+    image: sudadera,
+  },
+  {
+    name: "Carrito de Bebé",
+    description: "Carrito ligero con diseño de koala y asiento acolchado.",
+    price: 249.99,
+    image: carrito,
+  },
 ];
 ---
 
 <Layout title="Tienda para Bebés">
   <Header title="Catálogo de Productos" />
-  
+
   <!-- Carrito de compras -->
   <div class="cart-container">
     <button id="cart-button" class="cart-button">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <circle cx="9" cy="21" r="1"></circle>
         <circle cx="20" cy="21" r="1"></circle>
-        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        <path
+          d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+        ></path>
       </svg>
       <span id="cart-count" class="cart-count">0</span>
     </button>
   </div>
-  
+
   <div class="grid">
-    {products.map(product => (
-      <div class="card">
-        <img src={product.image.src} alt={product.name} class="image" />
-        <h2>{product.name}</h2>
-        <p>{product.description}</p>
-        <p class="price">${product.price.toFixed(2)}</p>
-        <button class="add-to-cart-btn">Añadir al carrito</button>
-      </div>
-    ))}
+    {
+      products.map((product) => (
+        <div class="card">
+          <img src={product.image.src} alt={product.name} class="image" />
+          <h2>{product.name}</h2>
+          <p>{product.description}</p>
+          <p class="price">${product.price.toFixed(2)}</p>
+          <button class="add-to-cart-btn">Añadir al carrito</button>
+        </div>
+      ))
+    }
   </div>
 </Layout>
 
@@ -100,11 +149,11 @@ const products = [
     position: relative;
     color: #10b981;
     transition: transform 0.2s;
-    
+
     &:hover {
       transform: scale(1.05);
     }
-    
+
     svg {
       width: 1.5rem;
       height: 1.5rem;
@@ -143,7 +192,7 @@ const products = [
   }
 
   .card {
-    background-color: rgba(183, 252, 178, 0.584);
+    background-color: rgb(183, 252, 178);
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 1rem;
@@ -157,11 +206,13 @@ const products = [
     }
 
     h2 {
-      font-size: 1.50rem;
+      font-size: 1.5rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
       color: #111827;
       font-weight: 700;
+      text-align: center;
+
     }
 
     p {
@@ -202,25 +253,25 @@ const products = [
 
 <script>
   // Script para el carrito (no funcional, solo para mostrar interacción)
-  document.addEventListener('DOMContentLoaded', () => {
-    const cartCountElement = document.getElementById('cart-count');
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
-    const cartButton = document.getElementById('cart-button');
-    
+  document.addEventListener("DOMContentLoaded", () => {
+    const cartCountElement = document.getElementById("cart-count");
+    const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+    const cartButton = document.getElementById("cart-button");
+
     let cartCount = 0;
-    
+
     // Añadir evento a los botones de añadir al carrito
-    addToCartButtons.forEach(button => {
-      button.addEventListener('click', () => {
+    addToCartButtons.forEach((button) => {
+      button.addEventListener("click", () => {
         cartCount++;
         if (cartCountElement) {
           cartCountElement.textContent = cartCount.toString();
-          
+
           // Animación sencilla para el botón
           const btn = button as HTMLButtonElement;
           btn.textContent = "¡Añadido!";
           btn.style.backgroundColor = "#10b981"; // Color verde
-          
+
           // Restaurar el texto original después de un momento
           setTimeout(() => {
             btn.textContent = "Añadir al carrito";
@@ -229,11 +280,11 @@ const products = [
         }
       });
     });
-    
+
     // Mostrar un mensaje al hacer clic en el icono del carrito
-    cartButton?.addEventListener('click', () => {
+    cartButton?.addEventListener("click", () => {
       if (cartCount === 0) {
-        alert('Tu carrito está vacío');
+        alert("Tu carrito está vacío");
       } else {
         alert(`Tienes ${cartCount} productos en tu carrito`);
       }
