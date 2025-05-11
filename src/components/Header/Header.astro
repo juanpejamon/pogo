@@ -1,256 +1,286 @@
 ---
 // Props interface
 interface Props {
-  title?: string;
+    title?: string;
 }
 
 // Get title from props with default value
 const { title = "Pogo" } = Astro.props;
 
 import tiktokImg from "../../assets/tiktok.svg";
+import instagramImg from "../../assets/instagram.svg";
 ---
 
 <header class="header">
-  <div class="header-container">
-    <!-- Hamburger menu button -->
-    <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-      <span class="hamburger-line"></span>
-    </button>
-    
-    <!-- Title -->
-    <h1 class="title">{title}</h1>
-    
-    <!-- Placeholder for right side to balance layout -->
-    <div class="placeholder"></div>
-  </div>
-  
-  <!-- Side menu -->
-  <nav id="side-menu" class="side-menu">
-    <div class="menu-header">
-      <h2>Menu</h2>
-      <button id="close-menu" class="close-menu" aria-label="Close menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
-    </div>
-    <ul class="menu-items">
-      <li><a href="/chat">Chat</a></li>
-      <li><a href="/padres">Padres</a></li>
-      <li><a href="/tienda">Tienda</a></li>
-    </ul>
+    <div class="header-container">
+        <!-- Hamburger menu button -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
 
-    <div class="contact-section">
-        <a href="/contacto" class="contact-link">
-          <span>Contáctanos</span>
-        </a>
-        <a><img src={tiktokImg.src}></a>
-      </div>
-  </nav>
-  
-  <!-- Overlay -->
-  <div id="menu-overlay" class="menu-overlay"></div>
+        <!-- Title -->
+        <h1 class="title">{title}</h1>
+
+        <!-- Placeholder for right side to balance layout -->
+        <div class="placeholder"></div>
+    </div>
+
+    <!-- Side menu -->
+    <nav id="side-menu" class="side-menu">
+        <div class="menu-header">
+            <h2>Menu</h2>
+            <button id="close-menu" class="close-menu" aria-label="Close menu">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <ul class="menu-items">
+            <li><a href="/chat">Chat</a></li>
+            <li><a href="/padres">Padres</a></li>
+            <li><a href="/tienda">Tienda</a></li>
+        </ul>
+
+        <div class="contact-section">
+            <a href="mailto:pobabysrl@gmail.com"><span>Contáctanos</span></a>
+            <a href="https://www.tiktok.com/@pogo_baby"
+                ><img src={tiktokImg.src} class="header_image" /></a
+            >
+            <a href="https://www.instagram.com/pogo.baby/"
+                ><img src={instagramImg.src} class="header_image" /></a
+            >
+        </div>
+    </nav>
+
+    <!-- Overlay -->
+    <div id="menu-overlay" class="menu-overlay"></div>
 </header>
 
 <style>
-  .header {
-    position: relative;
-    width: 100%;
-  }
-  
-  .header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  }
-  
-  .title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0;
-    color: #333;
-  }
-  
-  .menu-toggle {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 1.75rem;
-    height: 1.25rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 10;
-  }
-  
-  .hamburger-line {
-    width: 100%;
-    height: 2px;
-    background-color: #333;
-    transition: all 0.3s ease;
-    border-radius: 2px;
-  }
-  
-  .placeholder {
-    width: 1.75rem; /* Same as menu-toggle width for balance */
-  }
-  
-  .contact-section {
-    margin-top: auto;
-    padding: 1.5rem;
-    border-top: 1px solid #f0f0f0;
-    margin-top: auto;
-  }
-  
-  .contact-link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.75rem 0;
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-  }
-  
-  .contact-link:hover {
-    color: #ff0050; /* TikTok primary color */
-  }
-  
-  .contact-link svg {
-    margin-left: 0.5rem;
-  }
-  
-  /* Make sure the side menu uses flex for layout to push contact to bottom */
-  .side-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 80%;
-    max-width: 300px;
-    height: 100%;
-    background-color: white;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column; /* Add this for flex layout */
-  }
-  
-  .menu-items {
-    flex-grow: 1; /* This allows menu items to take available space */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .side-menu.active {
-    transform: translateX(0);
-  }
-  
-  .menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border-bottom: 1px solid #f0f0f0;
-  }
-  
-  .menu-header h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #333;
-  }
-  
-  .close-menu {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: #666;
-    padding: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .menu-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .menu-items li {
-    border-bottom: 1px solid #f0f0f0;
-  }
-  
-  .menu-items a {
-    display: block;
-    padding: 1rem 1.5rem;
-    color: #333;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-  
-  .menu-items a:hover {
-    background-color: #f5f5f5;
-  }
-  
-  /* Overlay */
-  .menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 999;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-  }
-  
-  .menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
-  }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .header_image {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+
+    .header {
+        position: relative;
+        width: 100%;
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background-color: #8cff9f;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+        color: #333;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 1.75rem;
+        height: 1.25rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        z-index: 10;
+    }
+
+    .hamburger-line {
+        width: 100%;
+        height: 2px;
+        background-color: #333;
+        transition: all 0.3s ease;
+        border-radius: 2px;
+    }
+
+    .placeholder {
+        width: 1.75rem; /* Same as menu-toggle width for balance */
+    }
+
+    .contact-section {
+        margin-top: auto;
+        padding: 1.5rem;
+        border-top: 1px solid #f0f0f0;
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .contact-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+    }
+
+    .contact-link:hover {
+        color: #ff0050; /* TikTok primary color */
+    }
+
+    .contact-link svg {
+        margin-left: 0.5rem;
+    }
+
+    /* Make sure the side menu uses flex for layout to push contact to bottom */
+    .side-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background-color: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column; /* Add this for flex layout */
+    }
+
+    .menu-items {
+        flex-grow: 1; /* This allows menu items to take available space */
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .side-menu.active {
+        transform: translateX(0);
+    }
+
+    .menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .menu-header h2 {
+        margin: 0;
+        font-size: 1.25rem;
+        color: #333;
+    }
+
+    .close-menu {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: #666;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .menu-items {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu-items li {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .menu-items a {
+        display: block;
+        padding: 1rem 1.5rem;
+        color: #333;
+        text-decoration: none;
+        transition: background-color 0.2s ease;
+    }
+
+    .menu-items a:hover {
+        background-color: #f5f5f5;
+    }
+
+    /* Overlay */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
 </style>
 
 <script>
-  // Get DOM elements
-  const menuToggle = document.getElementById('menu-toggle');
-  const sideMenu = document.getElementById('side-menu');
-  const closeMenu = document.getElementById('close-menu');
-  const menuOverlay = document.getElementById('menu-overlay');
-  
-  // Open menu
-  menuToggle?.addEventListener('click', () => {
-    sideMenu?.classList.add('active');
-    menuOverlay?.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Prevent body scrolling
-  });
-  
-  // Close menu
-  function closeMenuHandler() {
-    sideMenu?.classList.remove('active');
-    menuOverlay?.classList.remove('active');
-    document.body.style.overflow = ''; // Restore body scrolling
-  }
-  
-  closeMenu?.addEventListener('click', closeMenuHandler);
-  menuOverlay?.addEventListener('click', closeMenuHandler);
-  
-  // Close menu when clicking on a menu item
-  const menuItems = document.querySelectorAll('.menu-items a');
-  menuItems.forEach(item => {
-    item.addEventListener('click', closeMenuHandler);
-  });
+    // Get DOM elements
+    const menuToggle = document.getElementById("menu-toggle");
+    const sideMenu = document.getElementById("side-menu");
+    const closeMenu = document.getElementById("close-menu");
+    const menuOverlay = document.getElementById("menu-overlay");
+
+    // Open menu
+    menuToggle?.addEventListener("click", () => {
+        sideMenu?.classList.add("active");
+        menuOverlay?.classList.add("active");
+        document.body.style.overflow = "hidden"; // Prevent body scrolling
+    });
+
+    // Close menu
+    function closeMenuHandler() {
+        sideMenu?.classList.remove("active");
+        menuOverlay?.classList.remove("active");
+        document.body.style.overflow = ""; // Restore body scrolling
+    }
+
+    closeMenu?.addEventListener("click", closeMenuHandler);
+    menuOverlay?.addEventListener("click", closeMenuHandler);
+
+    // Close menu when clicking on a menu item
+    const menuItems = document.querySelectorAll(".menu-items a");
+    menuItems.forEach((item) => {
+        item.addEventListener("click", closeMenuHandler);
+    });
 </script>
